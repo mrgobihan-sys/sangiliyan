@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 
+# BASE_DIR pointe vers le dossier racine (là où il y a manage.py)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-2cjbui07(-+3ef3_6i1ach6=rna5o5w*!g*o%=(@)qspbx1%1o'
@@ -9,7 +10,7 @@ SECRET_KEY = 'django-insecure-2cjbui07(-+3ef3_6i1ach6=rna5o5w*!g*o%=(@)qspbx1%1o
 DEBUG = 'RENDER' not in os.environ
 
 # On autorise ton lien Render et ton PC local
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com', 'sangiliyan.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -32,7 +33,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'Sangiliyan.urls'
+# ATTENTION : Doit correspondre au nom de ton dossier contenant urls.py
+ROOT_URLCONF = 'Sangiliyan_2.urls'
 
 TEMPLATES = [
     {
@@ -50,7 +52,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Sangiliyan.wsgi.application'
+# ATTENTION : Doit correspondre au nom de ton dossier contenant wsgi.py
+WSGI_APPLICATION = 'Sangiliyan_2.wsgi.application'
 
 DATABASES = {
     'default': {
@@ -64,9 +67,11 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Configuration des fichiers Statiques (Bootstrap, images, etc.)
+# Configuration des fichiers Statiques
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Optionnel : désactive le stockage compressé si tu as des erreurs de build
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
