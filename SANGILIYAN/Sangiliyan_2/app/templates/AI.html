@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            
+            <div class="d-flex align-items-center p-4 bg-dark border border-info border-bottom-0" style="border-radius: 20px 20px 0 0;">
+                <div class="rounded-circle bg-info p-2 me-3 shadow-lg">
+                    <i class="fas fa-robot text-dark fs-4"></i>
+                </div>
+                <div>
+                    <h5 class="text-white mb-0 fw-bold">JAFFNA ARCHIVE <span class="text-info">INTEL</span></h5>
+                    <small class="text-success fw-bold ai-status">● SYSTEM ONLINE</small>
+                </div>
+            </div>
+
+            <div class="chat-container border border-info shadow-lg" style="height: 550px; display: flex; flex-direction: column; background: #0a0a0a; border-radius: 0 0 20px 20px; overflow: hidden;">
+                
+                <div class="chat-body p-4 flex-grow-1" id="chatbox" style="overflow-y: auto;">
+                    </div>
+
+                <div class="p-3 bg-dark border-top border-secondary">
+                    <div class="input-group">
+                        <input type="text" id="userInput" class="form-control bg-black text-white border-secondary shadow-none py-3" placeholder="Ask about the statue, the king, or history...">
+                        <button class="btn btn-info px-4" onclick="handleUserType()">
+                            <i class="fas fa-paper-plane text-dark"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // Base de données de connaissances de l'IA
+    const responses = {
+        "hello": "Greetings! I am the Royal Archive AI. I can tell you about Cankili II, the Nallur statue, or the fall of the Jaffna Kingdom.",
+        "who": "Cankili II (Sangiliyan) was the last King of the Jaffna Kingdom. He is a symbol of resistance against Portuguese invaders.",
+        "sword": "The raised sword in the statue represents 'Veeram' (valour) and the king's determination to protect his land.",
+        "location": "The statue is located in Nallur, Jaffna, marking the heart of the ancient capital.",
+        "portuguese": "The Portuguese forces captured Jaffna in 1619. Cankili II was the last major obstacle to their control over the north.",
+        "bravo": "Thank you! My neural circuits are dedicated to preserving the Tamil heritage of Jaffna.",
+        "help": "You can ask: 'Who is Sangiliyan?', 'Tell me about the sword', or 'Where is the statue located?'",
+        "unknown": "I'm searching the deep archives... 📂 I don't have a specific record for that yet, but you can try asking about the king's 'sword' or the 'Portuguese'."
+    };
+
+    function addMessage(text, isUser = false) {
+        const chatbox = document.getElementById('chatbox');
+        const side = isUser ? 'justify-content-end' : 'justify-content-start';
+        const color = isUser ? 'bg-info text-dark ms-5' : 'bg-dark text-white border border-secondary me-5';
+        
+        const msg = `
+            <div class="d-flex ${side} mb-3" style="animation: fadeIn 0.3s ease;">
+                <div class="p-3 rounded-4 shadow-sm ${color}" style="max-width: 85%; font-size: 0.95rem;">
+                    <small class="d-block opacity-50 mb-1 fw-bold" style="font-size: 0.7rem;">${isUser ? 'YOU' : 'ARCHIVE AI'}</small>
+                    ${text}
+                </div>
+            </div>`;
+        
+        chatbox.innerHTML += msg;
+        chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    // Message de bienvenue au chargement
+    window.onload = () => {
+        setTimeout(() => addMessage(responses.hello), 500);
+    };
+
+    function handleUserType() {
+        const input = document.getElementById('userInput');
+        const query = input.value.trim().toLowerCase();
+        if (!query) return;
+
+        addMessage(input.value, true);
+        input.value = "";
+
+        // Simulation d'un temps de réflexion
+        setTimeout(() => {
+            let reply = responses.unknown;
+            
+            if (query.includes("hi") || query.includes("hello")) reply = responses.hello;
+            else if (query.includes("who") || query.includes("king") || query.includes("cankili") || query.includes("sangiliyan")) reply = responses.who;
+            else if (query.includes("sword") || query.includes("weapon")) reply = responses.sword;
+            else if (query.includes("where") || query.includes("location") || query.includes("nallur")) reply = responses.location;
+            else if (query.includes("portuguese") || query.includes("invaders") || query.includes("1619")) reply = responses.portuguese;
+            else if (query.includes("bravo") || query.includes("good") || query.includes("thanks")) reply = responses.bravo;
+            else if (query.includes("help") || query === "?") reply = responses.help;
+
+            addMessage(reply);
+        }, 600);
+    }
+
+    document.getElementById('userInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleUserType();
+    });
+</script>
+
+<style>
+    body { background-color: #050505 !important; }
+    
+    /* Animation du point Online */
+    .ai-status {
+        animation: blink 2s linear infinite;
+    }
+    
+    @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0.4; }
+        100% { opacity: 1; }
+    }
+
+    /* Animation d'apparition des messages */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    #chatbox::-webkit-scrollbar { width: 5px; }
+    #chatbox::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
+    .bg-black { background-color: #000 !important; }
+    .btn-info:hover { background-color: #00cfbb; border-color: #00cfbb; }
+</style>
+{% endblock content %}

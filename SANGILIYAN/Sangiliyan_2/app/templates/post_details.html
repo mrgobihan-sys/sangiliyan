@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container py-5 mt-4">
+    <div class="row mb-5 text-center text-md-start">
+        <div class="col-12">
+            <h1 class="display-4 fw-bold border-bottom pb-3" style="font-family: 'Playfair Display', serif;">
+                {{ object.title }}
+            </h1>
+        </div>
+    </div>
+
+    <div class="row g-5">
+        <div class="col-md-5">
+            <div class="sticky-top" style="top: 100px;">
+                {% if object.image %}
+                <div class="shadow-lg rounded-4 overflow-hidden border">
+                    <img src="{{ object.image.url }}" 
+                         class="img-fluid w-100" 
+                         style="max-height: 500px; object-fit: contain; background-color: #f8f9fa;" 
+                         alt="{{ object.title }}">
+                </div>
+                {% endif %}
+                
+                <div class="mt-4 p-3 bg-light rounded-3 small text-muted text-center border">
+                    <i class="bi bi-info-circle me-2"></i> Archive Document - Jaffna Heritage
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <ul class="nav nav-pills mb-4 bg-white p-2 rounded-pill shadow-sm border" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active rounded-pill px-4" data-bs-toggle="tab" data-bs-target="#intro" type="button">Intro</button>
+                </li>
+                {% for section in object.sections.all %}
+                <li class="nav-item">
+                    <button class="nav-link rounded-pill px-4" data-bs-toggle="tab" data-bs-target="#tab-{{ section.id }}" type="button">
+                        {{ section.title }}
+                    </button>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <div class="tab-content bg-white p-4 p-md-5 rounded-4 shadow-sm border">
+                <div class="tab-pane fade show active" id="intro">
+                    <div class="article-text fs-5 lh-lg">
+                        {{ object.content|linebreaks }}
+                    </div>
+                </div>
+                {% for section in object.sections.all %}
+                <div class="tab-pane fade" id="tab-{{ section.id }}">
+                    <div class="article-text fs-5 lh-lg" style="white-space: pre-wrap;">
+                        {{ section.body }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="mt-5">
+                <a href="/" class="btn btn-dark btn-lg w-100 rounded-pill shadow">
+                    <i class="bi bi-arrow-left me-2"></i> Back to Archives
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Design épuré pour le texte */
+    .article-text { 
+        color: #2c3e50; 
+        font-family: 'Inter', sans-serif;
+        text-align: justify;
+    }
+    .nav-pills .nav-link { color: #555; font-weight: 600; }
+    .nav-pills .nav-link.active { background-color: #000 !important; }
+    
+    /* Animation pour l'image sticky */
+    .sticky-top { transition: all 0.3s ease; }
+</style>
+
+{% endblock %}
