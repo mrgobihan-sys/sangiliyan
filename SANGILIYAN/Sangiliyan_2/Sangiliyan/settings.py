@@ -1,16 +1,12 @@
 import os
 from pathlib import Path
 
-# BASE_DIR pointe vers le dossier racine (là où il y a manage.py)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Clé de sécurité
 SECRET_KEY = 'django-insecure-2cjbui07(-+3ef3_6i1ach6=rna5o5w*!g*o%=(@)qspbx1%1o'
 
-# DEBUG False sur Render, True en local
 DEBUG = 'RENDER' not in os.environ
 
-# Autorise ton URL Render
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com', 'sangiliyan.onrender.com']
 
 INSTALLED_APPS = [
@@ -34,9 +30,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# CHEMINS EN MINUSCULES (correspond au dossier renommé)
-ROOT_URLCONF = 'sangiliyan.Sangiliyan_2.urls'
-WSGI_APPLICATION = 'sangiliyan.Sangiliyan_2.wsgi.application'
+# ON ENLÈVE LE PRÉFIXE : Django cherchera directement Sangiliyan_2
+ROOT_URLCONF = 'Sangiliyan_2.urls'
+WSGI_APPLICATION = 'Sangiliyan_2.wsgi.application'
 
 TEMPLATES = [
     {
@@ -67,7 +63,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Fichiers Statiques
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
