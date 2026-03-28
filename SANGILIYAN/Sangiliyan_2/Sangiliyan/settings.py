@@ -25,7 +25,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # Vital pour le CSS sur Render
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -34,8 +34,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# CORRECTION : On pointe vers Sangiliyan_2 (ton dossier de config)
-ROOT_URLCONF = 'Sangiliyan_2.urls'
+# MODIFICATION : On ajoute le dossier parent SANGILIYAN pour que Django trouve les fichiers
+ROOT_URLCONF = 'SANGILIYAN.Sangiliyan_2.urls'
+WSGI_APPLICATION = 'SANGILIYAN.Sangiliyan_2.wsgi.application'
 
 TEMPLATES = [
     {
@@ -54,9 +55,6 @@ TEMPLATES = [
     },
 ]
 
-# CORRECTION : On pointe vers Sangiliyan_2
-WSGI_APPLICATION = 'Sangiliyan_2.wsgi.application'
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -69,7 +67,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Configuration des fichiers Statiques (CSS, JS, Images)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
