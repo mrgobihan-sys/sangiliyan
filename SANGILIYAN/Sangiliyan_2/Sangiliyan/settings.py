@@ -4,13 +4,13 @@ from pathlib import Path
 # BASE_DIR pointe vers le dossier racine (là où il y a manage.py)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Garde ta clé secrète actuelle
+# Clé de sécurité
 SECRET_KEY = 'django-insecure-2cjbui07(-+3ef3_6i1ach6=rna5o5w*!g*o%=(@)qspbx1%1o'
 
-# Sécurité : DEBUG est False sur Render, True sur ton PC
+# DEBUG False sur Render, True en local
 DEBUG = 'RENDER' not in os.environ
 
-# Autorise ton URL Render pour que le lien fonctionne
+# Autorise ton URL Render
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com', 'sangiliyan.onrender.com']
 
 INSTALLED_APPS = [
@@ -25,7 +25,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', 
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -34,7 +34,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# MODIFICATION : On ajoute le dossier parent SANGILIYAN pour que Django trouve les fichiers
+# CHEMINS CORRIGÉS : On utilise le préfixe SANGILIYAN
 ROOT_URLCONF = 'SANGILIYAN.Sangiliyan_2.urls'
 WSGI_APPLICATION = 'SANGILIYAN.Sangiliyan_2.wsgi.application'
 
@@ -67,6 +67,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+# Fichiers Statiques
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
