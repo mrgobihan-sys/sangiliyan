@@ -34,9 +34,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# CHEMINS CORRIGÉS : On utilise le préfixe SANGILIYAN
-ROOT_URLCONF = 'SANGILIYAN.Sangiliyan_2.urls'
-WSGI_APPLICATION = 'SANGILIYAN.Sangiliyan_2.wsgi.application'
+# CHEMINS EN MINUSCULES (correspond au dossier renommé)
+ROOT_URLCONF = 'sangiliyan.Sangiliyan_2.urls'
+WSGI_APPLICATION = 'sangiliyan.Sangiliyan_2.wsgi.application'
 
 TEMPLATES = [
     {
